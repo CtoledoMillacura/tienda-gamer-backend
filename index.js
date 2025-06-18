@@ -1,35 +1,31 @@
-// index.js
-
 const express = require('express');
 const cors = require('cors');
-
 const app = express();
-const port = process.env.PORT || 3000;
+const open = require('open');
 
-// Importar routers
-const productosRouter = require('./routes/productos');
-const categoriasRouter = require('./routes/categorias');
-const marcasRouter = require('./routes/marcas');
-const usuariosRouter = require('./routes/usuarios');
-const ventasRouter = require('./routes/ventas');
+const PORT = process.env.PORT || 3000;
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Rutas
-app.use('/api/productos', productosRouter);
-app.use('/api/categorias', categoriasRouter);
-app.use('/api/marcas', marcasRouter);
-app.use('/api/usuarios', usuariosRouter);
-app.use('/api/ventas', ventasRouter);
+// Importar rutas
+const productosRoutes = require('./routes/productos');
+const categoriasRoutes = require('./routes/categorias');
+const marcasRoutes = require('./routes/marcas');
+const usuariosRoutes = require('./routes/usuarios');
+const ventasRoutes = require('./routes/ventas');
 
-// Ruta raíz
+// Usar rutas
+app.use('/api/productos', productosRoutes);
+app.use('/api/categorias', categoriasRoutes);
+app.use('/api/marcas', marcasRoutes);
+app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/ventas', ventasRoutes);
+
 app.get('/', (req, res) => {
-  res.send('API REST Tienda Gamer funcionando correctamente');
+  res.send('API de Tienda Gamer funcionando');
 });
 
-// Arrancar servidor
-app.listen(port, () => {
-  console.log(`Servidor iniciado en http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
